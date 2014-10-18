@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "Item.h"
+#include "Dicionario.h"
+
+int main(void)
+{
+	Dicionario D = DIC_Inicializa();
+            
+	char c;
+	char word[50];
+	int i = 0;
+
+     do{
+		c = getchar();
+		//if(ispunct(c) || isblank(c) || c == EOF){
+		if (c == ' ' || c == '\n' || c == EOF || ispunct(c)){
+			if (i > 2){
+				word[i] = '\0';
+				i = 0;
+				Registro *r = novoRegistro(word);
+
+				DIC_Insere(D, r);
+				//DIC_Imprime(D);
+				
+			}
+		}else {
+			word[i] = c;
+			i++;
+		}
+			
+	}while (c != EOF);
+
+	
+	DIC_Processa(D, Imprime);
+	DIC_Imprime(D);
+
+	return 0;
+}
